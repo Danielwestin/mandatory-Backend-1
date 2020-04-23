@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+
 import logo from './logo.svg';
 import io from 'socket.io-client';
 import './App.css';
 
-export default function app() {
+export default function App() {
 	useEffect(() => {
 		let socket = io('localhost:3000');
 		socket.on('message', (data) => {
