@@ -24,6 +24,11 @@ exports.get = () => {
 	return rooms.entries;
 };
 
+exports.getRoom = (id) => {
+	const theRoom = rooms.entries.find((name) => name.id === id);
+	return theRoom;
+};
+
 exports.getRoomMessages = (roomId) => {
 	const getRoom = rooms.entries.find((room) => room.id === roomId);
 

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import axios from 'axios';
 
-const Menu = ({ rooms, setRooms, setActiveRoom }) => {
+const Menu = ({ rooms, setRooms }) => {
 	const [ roomName, setRoomName ] = useState('');
 	const { userId } = useParams();
 

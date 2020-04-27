@@ -22,10 +22,10 @@ app.post('/create', (req, res) => {
 			const room = {
 				...req.body,
 				messages: [
-					{
-						user: 'admin',
-						content: `Welcome to ${req.body.name}`
-					}
+					// {
+					// 	user: 'admin',
+					// 	content: `Welcome to ${req.body.name}`
+					// }
 				],
 				id: uuid(),
 				users: []
@@ -52,6 +52,12 @@ app.post('/create', (req, res) => {
 	}
 });
 
+app.get('/user/:id', async (req, res) => {
+	let user = Users.getUserById(req.params.id);
+
+	res.status(200).json(user);
+});
+
 app.get('/rooms', (req, res) => {
 	res.status(200).json(Rooms.get());
 });
@@ -64,7 +70,7 @@ app.get('/user/:userId/:roomId', (req, res) => {
 
 app.delete('/rooms/:id', async (req, res) => {
 	const id = req.params.id;
-	console.log(id);
+
 	try {
 		Rooms.deleteRoom(id);
 		res.sendStatus(204);
@@ -76,12 +82,21 @@ app.delete('/rooms/:id', async (req, res) => {
 io.on('connection', (socket) => {
 	// clients.push(socket);
 	console.log('a user connected');
-	socket.on('join', (username, roomId) => {
-		console.log(roomId);
+	socket.on('join', ({ username, roomId }) => {
+		// const user = Users.getUserByName(username);
+		const theRoom = Rooms.getRoom(roomId);
 
-		socket.emit('message', {
+		socket.join(roomId);
+
+		const adminMessage = {
 			user: 'Admin',
-			content: `${username}, welcome to the room ${roomId}`
+			content: `${username}, welcome to the room`
+		};
+
+		socket.emit('message', adminMessage);
+		socket.broadcast.to(roomId).emit('message', {
+			user: 'Admin',
+			content: `${username}, has joined te room`
 		});
 	});
 
@@ -89,14 +104,17 @@ io.on('connection', (socket) => {
 		console.log('A user just left!');
 	});
 
-	socket.on('new_message', ({ user, content, id }) => {
+	socket.on('new_message', ({ user, content, roomId }) => {
+		// const me = Users.getUserById(socket.id);
+		console.log(roomId, 'ID PÅ RUMMET');
+
 		const message = {
 			user,
 			content
 		};
-		io.emit('message', message);
+		socket.to(roomId).emit('message', message);
 
-		Rooms.saveMessage(id, message);
+		Rooms.saveMessage(roomId, message);
 	});
 });
 

@@ -1,51 +1,24 @@
 [
 	{
-		"name": "clean room",
+		"name": "final",
 		"messages": [
-			{ "user": "admin", "content": "Welcome to clean room" },
-			{ "user": "Hanna", "content": "ey clean" },
-			{ "user": "Janne", "content": "HEY" },
-			{ "user": "Janne", "content": "DSAD" },
-			{ "user": "Janne", "content": "Hello" }
+			{ "user": "Kalle", "content": "Hej kalle här" },
+			{ "user": "fds", "content": "Hello" },
+			{ "user": "fds", "content": "whats up" }
 		],
-		"id": "b344f984-1ac6-402e-9b83-01769a5fa0dd",
+		"id": "8ba1e4e1-6982-4f82-a34c-1ab56dfcdff9",
 		"users": []
 	},
 	{
-		"name": "no room?",
+		"name": "hello",
 		"messages": [
-			{ "user": "admin", "content": "Welcome to no room?" },
-			{ "user": "Hanna", "content": "no room?" }
+			{ "user": "Janne", "content": "Tjena janne här" },
+			{ "user": "fds", "content": "tjen fds här" },
+			{ "user": "fds", "content": "Hello" },
+			{ "user": "fds", "content": "röv" },
+			{ "user": "fds", "content": "Hello" }
 		],
-		"id": "7950915a-b3da-4791-8b5a-0bae91760fc6",
-		"users": []
-	},
-	{
-		"name": "room room?",
-		"messages": [
-			{ "user": "admin", "content": "Welcome to room room?" },
-			{ "content": "Hej" },
-			{ "content": "Hur" },
-			{ "content": "är" },
-			{ "content": "läget" },
-			{ "user": "Hanna", "content": "Hur är läget" },
-			{ "user": "Hanna", "content": "room room" }
-		],
-		"id": "2bf7828d-1e54-43da-8ced-e52164e35834",
-		"users": []
-	},
-	{
-		"name": "Disco room",
-		"messages": [
-			{ "user": "admin", "content": "Welcome to Disco room" },
-			{ "user": "Hanna", "content": "Tjena" },
-			{ "user": "Hanna", "content": "WHats up" },
-			{ "user": "Hej", "content": "Hello" },
-			{ "user": "Hej", "content": "Hur är läget" },
-			{ "user": "Janne", "content": "Hello" },
-			{ "user": "Janne", "content": "Whats up" }
-		],
-		"id": "5c6a7e1a-ac6f-4713-9a0d-9871987fd833",
+		"id": "ab567663-fb08-480c-9e64-bde900aa308e",
 		"users": []
 	}
 ]

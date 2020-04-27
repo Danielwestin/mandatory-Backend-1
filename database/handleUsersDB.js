@@ -10,3 +10,15 @@ exports.save = (user) => {
 		save(users);
 	}
 };
+
+exports.getUserByName = (name) => {
+	const singleUser = users.entries.find((user) => user.name === name);
+
+	return singleUser;
+};
+
+exports.getUserById = (id) => {
+	const singleUser = users.entries.find((user) => user.id === id);
+
+	return singleUser;
+};

@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-export default function Login() {
-	const [ user, setUser ] = useState({ username: '', password: '' });
+export default function Login(props) {
+	const [ user, setUser ] = useState({
+		username: '',
+		password: ''
+	});
 	const [ online, setOnline ] = useState({ status: false, id: '' });
-	// useEffect(() => {
-	// 	// let socket = io('http://localhost:8000');
-	// 	// socket.on('message', (data) => {
-	// 	// 	console.log(data);
-	// 	// });
-	// }, []);
 
 	const set = (e) => {
 		setUser({
@@ -27,10 +24,7 @@ export default function Login() {
 				.post('/create?type=user', user)
 				.then((response) => {
 					console.log(response.data, 'GREAT SUCCESS');
-					window.localStorage.setItem(
-						'user',
-						JSON.stringify(response.data)
-					);
+
 					setOnline({ status: true, id: response.data.id });
 				})
 				.catch(function(error) {
@@ -41,16 +35,7 @@ export default function Login() {
 
 	return (
 		<main>
-			{online.status && (
-				<Redirect
-					to={{
-						pathname: '/user/' + online.id,
-						state: {
-							username: user.username
-						}
-					}}
-				/>
-			)}
+			{online.status && <Redirect to={'/user/' + online.id} />}
 
 			<h1>Login</h1>
 			<form onSubmit={submitUser}>

@@ -12,30 +12,23 @@ let socket = io('localhost:8000');
 export default function Chat(props) {
 	const [ rooms, setRooms ] = useState([]);
 	const [ username, setUsername ] = useState('');
-	const [ activeRoom, setActiveRoom ] = useState(false);
 	const { userId } = useParams();
 
 	useEffect(() => {
-		setUsername(props.location.state.username);
 		axios.get('/rooms').then((response) => {
 			setRooms(response.data);
 		});
+		axios.get(`/user/${userId}`).then((response) => {
+			setUsername(response.data.username);
+		});
 	}, []);
-
-	// newMessage = (data) => {
-	// 	this.setState({ messages: [ ...this.state.messages, data ] });
-	// };
 
 	return (
 		<React.Fragment>
-			<h1>Hello, {username}</h1>
-			<Menu
-				rooms={rooms}
-				setRooms={setRooms}
-				setActiveRoom={setActiveRoom}
-			/>
+			<h1>Hello, {username} </h1>
+			<Menu rooms={rooms} setRooms={setRooms} />
 			<Route exact path="/user/:userId/:roomId">
-				<Room username={username} />
+				<Room username={username} rooms={rooms} />
 			</Route>
 		</React.Fragment>
 	);
