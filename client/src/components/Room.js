@@ -10,12 +10,12 @@ const Room = ({ username }) => {
 	const [ message, setMessage ] = useState('');
 
 	const { userId, roomId } = useParams();
-
-	console.log(oldMessages);
+	console.log(messages);
 
 	// if (!activeRoom.messages) return null;
 	useEffect(
 		() => {
+			if (!username) return;
 			setMessages([]);
 			Axios.get(`/user/${userId}/${roomId}`).then((response) => {
 				console.log(response.data.messages, 'AXIOS GET');
@@ -25,28 +25,16 @@ const Room = ({ username }) => {
 				console.log(response, 'SOCKET EMIT JOIN');
 			});
 		},
-		[ roomId ]
+		[ roomId, userId, username ]
 	);
 
-	useEffect(
-		() => {
-			socket.on('message', (data) => {
-				console.log(messages, data);
-
-				setMessages((messages) => {
-					return [ ...messages, data ];
-				});
+	useEffect(() => {
+		socket.on('message', (data) => {
+			setMessages((messages) => {
+				return [ ...messages, data ];
 			});
-
-			// return () => {
-			// 	socket.emit('disconnect');
-			// 	socket.off();
-			// };
-		},
-		[ message ]
-	);
-
-	console.log(messages);
+		});
+	}, []);
 
 	const send = (e) => {
 		e.preventDefault();
@@ -57,6 +45,13 @@ const Room = ({ username }) => {
 				content: message,
 				roomId: roomId
 			});
+			setMessages((messages) => [
+				...messages,
+				{
+					content: message,
+					user: username
+				}
+			]);
 			setMessage('');
 		}
 	};
