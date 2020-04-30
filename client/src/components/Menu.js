@@ -10,16 +10,18 @@ const Menu = ({ rooms, setRooms }) => {
 
 	const create = (e) => {
 		e.preventDefault();
-		axios
-			.post('/create?type=room', { name: roomName })
-			.then((response) => {
-				console.log(response.data);
-				setRooms([ ...rooms, response.data ]);
-				setRoomName('');
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (roomName.length > 1) {
+			axios
+				.post('/create?type=room', { name: roomName })
+				.then((response) => {
+					console.log(response.data);
+					setRooms([ ...rooms, response.data ]);
+					setRoomName('');
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 	};
 
 	const deleteRoom = (e, id) => {
@@ -49,7 +51,7 @@ const Menu = ({ rooms, setRooms }) => {
 			</form>
 			<ul>
 				{rooms.map((room) => (
-					<li key={room.name}>
+					<li key={room.id}>
 						<Link to={`/user/${userId}/${room.id}`}>
 							{room.name}
 						</Link>

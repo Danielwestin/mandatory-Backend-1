@@ -12,7 +12,6 @@ const Rooms = require('./database/handleRoomsDB');
 const port = config.port;
 
 app.use(express.json());
-// app.use(express.static('client'));
 
 app.post('/create', (req, res) => {
 	const type = req.query.type;
@@ -22,15 +21,15 @@ app.post('/create', (req, res) => {
 			const room = {
 				...req.body,
 				messages: [
-					// {
-					// 	user: 'admin',
-					// 	content: `Welcome to ${req.body.name}`
-					// }
+					{
+						user: 'Admin',
+						content: `Welcome to ${req.body.name}`
+					}
 				],
-				id: uuid(),
-				users: []
+				id: uuid()
 			};
 			Rooms.save(room);
+
 			res.status(201).json(room);
 
 			break;
@@ -38,13 +37,11 @@ app.post('/create', (req, res) => {
 		case 'user':
 			const user = {
 				...req.body,
-				id: uuid(),
-				rooms: []
+				id: uuid()
 			};
-
+			Users.save(user);
 			res.status(201).json(user);
 
-			Users.save(user);
 			break;
 
 		default:
@@ -80,12 +77,8 @@ app.delete('/rooms/:id', async (req, res) => {
 });
 
 io.on('connection', (socket) => {
-	// clients.push(socket);
 	console.log('a user connected');
 	socket.on('join', ({ username, roomId }) => {
-		// const user = Users.getUserByName(username);
-		const theRoom = Rooms.getRoom(roomId);
-
 		socket.join(roomId);
 
 		const adminMessage = {
@@ -96,7 +89,7 @@ io.on('connection', (socket) => {
 		socket.emit('message', adminMessage);
 		socket.broadcast.to(roomId).emit('message', {
 			user: 'Admin',
-			content: `${username}, has joined te room`
+			content: `${username} has joined`
 		});
 	});
 
@@ -105,9 +98,6 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('new_message', ({ user, content, roomId }) => {
-		// const me = Users.getUserById(socket.id);
-		console.log(roomId, 'ID PÅ RUMMET');
-
 		const message = {
 			user,
 			content

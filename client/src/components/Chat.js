@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import axios from 'axios';
 import Room from './Room';
 import Menu from './Menu';
 import { useParams, Route } from 'react-router-dom';
-let socket = io('localhost:8000');
+// let socket = io('localhost:8000');
 
 // let io = require('socket.io-client');
 // let socket = io('http://localhost:3000');

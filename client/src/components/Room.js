@@ -12,7 +12,6 @@ const Room = ({ username }) => {
 	const { userId, roomId } = useParams();
 	console.log(messages);
 
-	// if (!activeRoom.messages) return null;
 	useEffect(
 		() => {
 			if (!username) return;
