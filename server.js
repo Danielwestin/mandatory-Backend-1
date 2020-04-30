@@ -28,7 +28,7 @@ app.post('/create', (req, res) => {
 				],
 				id: uuid()
 			};
-			Rooms.save(room);
+			Rooms.save(room, res);
 
 			res.status(201).json(room);
 

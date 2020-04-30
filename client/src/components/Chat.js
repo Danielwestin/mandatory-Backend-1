@@ -14,14 +14,17 @@ export default function Chat(props) {
 	const [ username, setUsername ] = useState('');
 	const { userId } = useParams();
 
-	useEffect(() => {
-		axios.get('/rooms').then((response) => {
-			setRooms(response.data);
-		});
-		axios.get(`/user/${userId}`).then((response) => {
-			setUsername(response.data.username);
-		});
-	}, []);
+	useEffect(
+		() => {
+			axios.get('/rooms').then((response) => {
+				setRooms(response.data);
+			});
+			axios.get(`/user/${userId}`).then((response) => {
+				setUsername(response.data.username);
+			});
+		},
+		[ userId ]
+	);
 
 	return (
 		<React.Fragment>

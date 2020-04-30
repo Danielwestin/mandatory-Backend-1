@@ -19,7 +19,7 @@ const Menu = ({ rooms, setRooms }) => {
 					setRoomName('');
 				})
 				.catch((error) => {
-					console.log(error);
+					console.log('Room-name already in use', error);
 				});
 		}
 	};

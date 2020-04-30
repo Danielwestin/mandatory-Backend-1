@@ -1,10 +1,11 @@
 const { rooms, save } = require('./brain');
 
-exports.save = (room) => {
+exports.save = (room, res) => {
 	const exists = rooms.entries.find(({ name }) => name === room.name);
 
 	if (exists) {
 		console.log('Room-name already exists');
+		res.status(406).end();
 	} else {
 		rooms.entries.push(room);
 		save(rooms);
