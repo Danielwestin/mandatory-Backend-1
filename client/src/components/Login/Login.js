@@ -34,28 +34,33 @@ export default function Login(props) {
 	};
 
 	return (
-		<main>
+		<main className="Login">
 			{online.status && <Redirect to={'/user/' + online.id} />}
 
-			<h1>Login</h1>
-			<form onSubmit={submitUser}>
-				<input
-					type="text"
-					name="username"
-					value={user.username}
-					onChange={set}
-					placeholder="Användarnamn"
-				/>
-				<input
-					type="text"
-					name="password"
-					value={user.password}
-					onChange={set}
-					placeholder="Lösenord"
-				/>
+			<section className="Login__section">
+				<h1>Login</h1>
+				<form onSubmit={submitUser} className="Login__section__form">
+					<input
+						className="Login__input"
+						type="text"
+						name="username"
+						value={user.username}
+						onChange={set}
+						placeholder="Användarnamn"
+						autoFocus
+					/>
 
-				<button type="submit">Submit</button>
-			</form>
+					<input
+						type="text"
+						name="password"
+						value={user.password}
+						onChange={set}
+						placeholder="Lösenord"
+					/>
+
+					<button type="submit">Submit</button>
+				</form>
+			</section>
 		</main>
 	);
 }

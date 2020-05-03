@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import Axios from 'axios';
@@ -8,6 +8,7 @@ const Room = ({ username }) => {
 	const [ messages, setMessages ] = useState([]);
 	const [ oldMessages, setOldMessages ] = useState([]);
 	const [ message, setMessage ] = useState('');
+	const scrollRef = useRef(null);
 
 	const { userId, roomId } = useParams();
 	console.log(messages);
@@ -16,7 +17,7 @@ const Room = ({ username }) => {
 		() => {
 			if (!username) return;
 			setMessages([]);
-			Axios.get(`/user/${userId}/${roomId}`).then((response) => {
+			Axios.get(`/user/${userId}/room/${roomId}`).then((response) => {
 				console.log(response.data.messages, 'AXIOS GET');
 				setOldMessages(response.data.messages);
 			});
@@ -35,10 +36,17 @@ const Room = ({ username }) => {
 		});
 	}, []);
 
+	useEffect(
+		() => {
+			scrollRef.current.scrollIntoView();
+		},
+		[ messages ]
+	);
+
 	const send = (e) => {
 		e.preventDefault();
 
-		if (message.length > 1) {
+		if (message.length >= 1) {
 			socket.emit('new_message', {
 				user: username,
 				content: message,
@@ -51,14 +59,15 @@ const Room = ({ username }) => {
 					user: username
 				}
 			]);
+
 			setMessage('');
 		}
 	};
 
 	if (!roomId) return null;
 	return (
-		<main>
-			<div>
+		<main className="Room">
+			<div className="Room__messages">
 				{!oldMessages ? null : (
 					oldMessages.map((message, i) => (
 						<p key={i}>
@@ -71,9 +80,11 @@ const Room = ({ username }) => {
 						{message.user}: {message.content}
 					</p>
 				))}
+				<div ref={scrollRef} />
 			</div>
-			<form onSubmit={send}>
+			<form onSubmit={send} className="Room__form">
 				<input
+					placeholder="Write something funny"
 					type="text"
 					value={message}
 					onChange={(e) => {

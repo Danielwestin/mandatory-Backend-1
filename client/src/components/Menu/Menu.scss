@@ -1,0 +1,23 @@
+.Menu {
+	width: 20%;
+	height: 100vh;
+	background-color: #78866b;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	&__ul {
+		transform: translateY(100px);
+		list-style-type: none;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		li {
+			width: 100%;
+			margin: 5px;
+			display: flex;
+			justify-content: space-evenly;
+		}
+	}
+}

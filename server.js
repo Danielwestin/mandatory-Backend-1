@@ -59,7 +59,7 @@ app.get('/rooms', (req, res) => {
 	res.status(200).json(Rooms.get());
 });
 
-app.get('/user/:userId/:roomId', (req, res) => {
+app.get('/user/:userId/room/:roomId', (req, res) => {
 	const room = Rooms.getRoomMessages(req.params.roomId);
 
 	res.status(200).send(room);

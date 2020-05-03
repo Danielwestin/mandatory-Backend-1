@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 // import io from 'socket.io-client';
 import axios from 'axios';
-import Room from './Room';
-import Menu from './Menu';
+import Room from '../Room/Room';
+import Menu from '../Menu/Menu';
 import { useParams, Route } from 'react-router-dom';
 // let socket = io('localhost:8000');
 
@@ -28,11 +28,14 @@ export default function Chat(props) {
 
 	return (
 		<React.Fragment>
-			<h1>Hello, {username} </h1>
-			<Menu rooms={rooms} setRooms={setRooms} />
-			<Route exact path="/user/:userId/:roomId">
-				<Room username={username} rooms={rooms} />
-			</Route>
+			<main className="Chat">
+				<Menu rooms={rooms} setRooms={setRooms} username={username} />
+				<div className="Chat__room">
+					<Route exact path="/user/:userId/room/:roomId">
+						<Room username={username} rooms={rooms} />
+					</Route>
+				</div>
+			</main>
 		</React.Fragment>
 	);
 }

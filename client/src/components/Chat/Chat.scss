@@ -1,0 +1,21 @@
+.Chat {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	width: 100vw;
+	height: 100vh;
+	background-color: #a9ba9d;
+	display: flex;
+	flex-wrap: wrap;
+
+	&__room {
+		width: 80%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	h1 {
+		margin-top: 0;
+	}
+}

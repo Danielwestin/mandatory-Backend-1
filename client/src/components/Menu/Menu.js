@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import axios from 'axios';
 
-const Menu = ({ rooms, setRooms }) => {
+const Menu = ({ rooms, setRooms, username }) => {
 	const [ roomName, setRoomName ] = useState('');
 	const { userId } = useParams();
 
@@ -37,8 +37,9 @@ const Menu = ({ rooms, setRooms }) => {
 			});
 	};
 	return (
-		<aside>
-			<form onSubmit={create}>
+		<aside className="Menu">
+			<h1>Hello {username}</h1>
+			<form onSubmit={create} className="Menu__form">
 				<input
 					type="text"
 					placeholder="room name"
@@ -49,14 +50,14 @@ const Menu = ({ rooms, setRooms }) => {
 				/>
 				<button type="submit">Create room</button>
 			</form>
-			<ul>
+			<ul className="Menu__ul">
 				{rooms.map((room) => (
 					<li key={room.id}>
-						<Link to={`/user/${userId}/${room.id}`}>
+						<Link to={`/user/${userId}/room/${room.id}`}>
 							{room.name}
 						</Link>
 						<button onClick={(e) => deleteRoom(e, room.id)}>
-							Ta bort {room.id}
+							Delete
 						</button>
 					</li>
 				))}
