@@ -39,6 +39,7 @@ export default function Login(props) {
 
 			<section className="Login__section">
 				<h1>Login</h1>
+
 				<form onSubmit={submitUser} className="Login__section__form">
 					<input
 						className="Login__input"
@@ -51,7 +52,7 @@ export default function Login(props) {
 					/>
 
 					<input
-						type="text"
+						type="password"
 						name="password"
 						value={user.password}
 						onChange={set}
@@ -60,6 +61,7 @@ export default function Login(props) {
 
 					<button type="submit">Submit</button>
 				</form>
+				<p>Ingen autentisering</p>
 			</section>
 		</main>
 	);
